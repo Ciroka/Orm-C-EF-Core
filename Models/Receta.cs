@@ -1,0 +1,17 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PracticoOrm.Models;
+
+public class Receta
+{
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int RecetaId {get; set;}
+
+    [MaxLength(100)]
+    public string Nombre {get; set;} = null!;
+
+    public ICollection<DetalleReceta> DetalleRecetas {get; set;} = [];
+
+    public ICollection<Producto> Productos {get; set;} = [];
+}

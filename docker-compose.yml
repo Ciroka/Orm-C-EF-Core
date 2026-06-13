@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:alpine
+    env_file:
+      - .env.db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 2s
+      retries: 5
+    volumes:
+      - postgres-db:/var/lib/postgresql
+    networks:
+      - net
+
+  backend:
+    build: ./PracticoOrm
+    env_file:
+      - .env.db
+    ports:
+      - "8000:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - net
+
+networks:
+  net:
+
+volumes:
+  postgres-db:
