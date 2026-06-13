@@ -14,4 +14,6 @@ public class Receta
     public ICollection<DetalleReceta> DetalleRecetas {get; set;} = [];
 
     public ICollection<Producto> Productos {get; set;} = [];
+
+    public override string ToString() => Nombre;
 }

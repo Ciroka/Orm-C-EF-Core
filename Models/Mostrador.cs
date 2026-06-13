@@ -17,4 +17,6 @@ public class Mostrador
     public PuntoDeVenta PuntoDeVenta{get; set;} = null!;
 
     public ICollection<Venta> Ventas {get; set;} = [];
+
+    public override string ToString() => Nombre;
 }

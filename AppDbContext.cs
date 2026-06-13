@@ -16,4 +16,15 @@ public class AppDbContext: DbContext
     public DbSet<Receta> Recetas => Set<Receta>();
     public DbSet<TipoProducto> TipoProductos => Set<TipoProducto>(); 
     public DbSet<Venta> Ventas => Set<Venta>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        foreach (var entity in modelBuilder.Model.GetEntityTypes())
+        {
+            entity.SetTableName(entity.GetTableName()!.ToLower());
+        
+            foreach (var property in entity.GetProperties())
+                property.SetColumnName(property.GetColumnName().ToLower());
+        }
+    }
 }

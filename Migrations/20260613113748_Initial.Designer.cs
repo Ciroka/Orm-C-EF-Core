@@ -12,7 +12,7 @@ using PracticoOrm;
 namespace PracticoOrm.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260612014202_Initial")]
+    [Migration("20260613113748_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -29,18 +29,22 @@ namespace PracticoOrm.Migrations
                 {
                     b.Property<int>("DetalleRecetaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("detallerecetaid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DetalleRecetaId"));
 
                     b.Property<decimal>("Cantidad")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("cantidad");
 
                     b.Property<int>("IngredienteId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("ingredienteid");
 
                     b.Property<int>("RecetaId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("recetaid");
 
                     b.HasKey("DetalleRecetaId");
 
@@ -48,25 +52,29 @@ namespace PracticoOrm.Migrations
 
                     b.HasIndex("RecetaId");
 
-                    b.ToTable("DetalleRecetas");
+                    b.ToTable("detallerecetas");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.DetalleVenta", b =>
                 {
                     b.Property<int>("DetalleVentaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("detalleventaid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DetalleVentaId"));
 
                     b.Property<int>("Cantidad")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("cantidad");
 
                     b.Property<int>("ProductoId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("productoid");
 
                     b.Property<int>("VentaId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("ventaid");
 
                     b.HasKey("DetalleVentaId");
 
@@ -74,78 +82,90 @@ namespace PracticoOrm.Migrations
 
                     b.HasIndex("VentaId");
 
-                    b.ToTable("DetalleVentas");
+                    b.ToTable("detalleventas");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Ingrediente", b =>
                 {
                     b.Property<int>("IngredienteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("ingredienteid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IngredienteId"));
 
                     b.Property<decimal>("Costo")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("costo");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
 
                     b.HasKey("IngredienteId");
 
-                    b.ToTable("Ingredientes");
+                    b.ToTable("ingredientes");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Mostrador", b =>
                 {
                     b.Property<int>("MostradorId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("mostradorid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MostradorId"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
 
                     b.Property<int>("PuntoDeVentaId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("puntodeventaid");
 
                     b.HasKey("MostradorId");
 
                     b.HasIndex("PuntoDeVentaId");
 
-                    b.ToTable("Mostradores");
+                    b.ToTable("mostradores");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Producto", b =>
                 {
                     b.Property<int>("ProductoId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("productoid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductoId"));
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("descripcion");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
 
                     b.Property<decimal>("PorcentajeDeGanancia")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("porcentajedeganancia");
 
                     b.Property<int>("RecetaId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("recetaid");
 
                     b.Property<int>("TipoProductoId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("tipoproductoid");
 
                     b.HasKey("ProductoId");
 
@@ -153,82 +173,91 @@ namespace PracticoOrm.Migrations
 
                     b.HasIndex("TipoProductoId");
 
-                    b.ToTable("Productos");
+                    b.ToTable("productos");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.PuntoDeVenta", b =>
                 {
                     b.Property<int>("PuntoDeVentaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("puntodeventaid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PuntoDeVentaId"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
 
                     b.HasKey("PuntoDeVentaId");
 
-                    b.ToTable("PuntoDeVentas");
+                    b.ToTable("puntodeventas");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Receta", b =>
                 {
                     b.Property<int>("RecetaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("recetaid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RecetaId"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
 
                     b.HasKey("RecetaId");
 
-                    b.ToTable("Recetas");
+                    b.ToTable("recetas");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.TipoProducto", b =>
                 {
                     b.Property<int>("TipoProductoId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("tipoproductoid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TipoProductoId"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
 
                     b.HasKey("TipoProductoId");
 
-                    b.ToTable("TipoProductos");
+                    b.ToTable("tipoproductos");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Venta", b =>
                 {
                     b.Property<int>("VentaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("ventaid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VentaId"));
 
                     b.Property<DateTime>("FechaDeVenta")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("fechadeventa");
 
                     b.Property<int>("MostradorId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("mostradorid");
 
                     b.HasKey("VentaId");
 
                     b.HasIndex("MostradorId");
 
-                    b.ToTable("Ventas");
+                    b.ToTable("ventas");
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.DetalleReceta", b =>

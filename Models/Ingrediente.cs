@@ -16,4 +16,6 @@ public class Ingrediente
     public decimal Costo{get; set;}
 
     public ICollection<DetalleReceta> DetalleRecetas {get; set;} = [];
+
+    public override string ToString() => Nombre;
 }
