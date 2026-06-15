@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PracticoOrm;
@@ -11,9 +12,11 @@ using PracticoOrm;
 namespace PracticoOrm.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260615230225_Como antes")]
+    partial class Comoantes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,10 +158,6 @@ namespace PracticoOrm.Migrations
                     b.Property<decimal>("PorcentajeDeGanancia")
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("porcentajedeganancia");
-
-                    b.Property<decimal>("Precio")
-                        .HasColumnType("numeric")
-                        .HasColumnName("precio");
 
                     b.Property<int>("RecetaId")
                         .HasColumnType("integer")

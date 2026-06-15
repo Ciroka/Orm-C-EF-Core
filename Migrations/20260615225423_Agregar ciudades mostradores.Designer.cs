@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PracticoOrm;
@@ -11,9 +12,11 @@ using PracticoOrm;
 namespace PracticoOrm.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260615225423_Agregar ciudades mostradores")]
+    partial class Agregarciudadesmostradores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,9 +159,9 @@ namespace PracticoOrm.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("porcentajedeganancia");
 
-                    b.Property<decimal>("Precio")
-                        .HasColumnType("numeric")
-                        .HasColumnName("precio");
+                    b.Property<decimal?>("PrecioVenta")
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("precioventa");
 
                     b.Property<int>("RecetaId")
                         .HasColumnType("integer")
