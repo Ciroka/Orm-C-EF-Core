@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 var host = Environment.GetEnvironmentVariable("POSTGRES_HOST") ?? "localhost";
 var port = Environment.GetEnvironmentVariable("POSTGRES_PORT") ?? "5434";
-var db = Environment.GetEnvironmentVariable("POSTGRES_DB") ?? "fabricaPastas";
+var db = Environment.GetEnvironmentVariable("POSTGRES_DB") ?? "fabrica_pastas";
 var user = Environment.GetEnvironmentVariable("POSTGRES_USER") ?? "postgres";
 var password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD") ?? "admin";
 var connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={password}";
@@ -17,7 +17,6 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connect
 builder.Services.AddCoreAdmin();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

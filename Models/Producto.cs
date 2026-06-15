@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PracticoOrm.Models;
 
@@ -18,6 +19,8 @@ public class Producto
     [Column(TypeName = "decimal(10,2)")]
     public decimal PorcentajeDeGanancia {get; set;}
 
+    [Column(TypeName = "decimal(10,2)")]
+    public decimal? PrecioVenta {get; set;}
     public int RecetaId {get; set;}
 
     public Receta Receta {get; set;} = null!;
@@ -26,6 +29,7 @@ public class Producto
 
     public TipoProducto TipoProducto {get; set;} = null!;
 
+    [JsonIgnore]
     public ICollection<DetalleVenta> DetalleVentas {get; set;} = [];
 
     public override string ToString() => Nombre;
