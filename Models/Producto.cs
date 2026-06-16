@@ -27,7 +27,7 @@ public class Producto
     public int TipoProductoId {get; set;}
 
     public TipoProducto TipoProducto {get; set;} = null!;
-
+    
     public ICollection<DetalleVenta> DetalleVentas {get; set;} = [];
 
     public override string ToString() => Nombre;

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PracticoOrm.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,99 +16,99 @@ namespace PracticoOrm.Migrations
                 name: "ingredientes",
                 columns: table => new
                 {
-                    ingredienteid = table.Column<int>(type: "integer", nullable: false)
+                    ingrediente_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     costo = table.Column<decimal>(type: "numeric(10,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ingredientes", x => x.ingredienteid);
+                    table.PrimaryKey("pk_ingredientes", x => x.ingrediente_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "puntodeventas",
+                name: "punto_de_ventas",
                 columns: table => new
                 {
-                    puntodeventaid = table.Column<int>(type: "integer", nullable: false)
+                    punto_de_venta_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_puntodeventas", x => x.puntodeventaid);
+                    table.PrimaryKey("pk_punto_de_ventas", x => x.punto_de_venta_id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "recetas",
                 columns: table => new
                 {
-                    recetaid = table.Column<int>(type: "integer", nullable: false)
+                    receta_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_recetas", x => x.recetaid);
+                    table.PrimaryKey("pk_recetas", x => x.receta_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "tipoproductos",
+                name: "tipo_productos",
                 columns: table => new
                 {
-                    tipoproductoid = table.Column<int>(type: "integer", nullable: false)
+                    tipo_producto_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tipoproductos", x => x.tipoproductoid);
+                    table.PrimaryKey("pk_tipo_productos", x => x.tipo_producto_id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "mostradores",
                 columns: table => new
                 {
-                    mostradorid = table.Column<int>(type: "integer", nullable: false)
+                    mostrador_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    puntodeventaid = table.Column<int>(type: "integer", nullable: false)
+                    punto_de_venta_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_mostradores", x => x.mostradorid);
+                    table.PrimaryKey("pk_mostradores", x => x.mostrador_id);
                     table.ForeignKey(
-                        name: "FK_mostradores_puntodeventas_puntodeventaid",
-                        column: x => x.puntodeventaid,
-                        principalTable: "puntodeventas",
-                        principalColumn: "puntodeventaid",
+                        name: "fk_mostradores_punto_de_ventas_punto_de_venta_id",
+                        column: x => x.punto_de_venta_id,
+                        principalTable: "punto_de_ventas",
+                        principalColumn: "punto_de_venta_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "detallerecetas",
+                name: "detalle_recetas",
                 columns: table => new
                 {
-                    detallerecetaid = table.Column<int>(type: "integer", nullable: false)
+                    detalle_receta_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     cantidad = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
-                    recetaid = table.Column<int>(type: "integer", nullable: false),
-                    ingredienteid = table.Column<int>(type: "integer", nullable: false)
+                    receta_id = table.Column<int>(type: "integer", nullable: false),
+                    ingrediente_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_detallerecetas", x => x.detallerecetaid);
+                    table.PrimaryKey("pk_detalle_recetas", x => x.detalle_receta_id);
                     table.ForeignKey(
-                        name: "FK_detallerecetas_ingredientes_ingredienteid",
-                        column: x => x.ingredienteid,
+                        name: "fk_detalle_recetas_ingredientes_ingrediente_id",
+                        column: x => x.ingrediente_id,
                         principalTable: "ingredientes",
-                        principalColumn: "ingredienteid",
+                        principalColumn: "ingrediente_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_detallerecetas_recetas_recetaid",
-                        column: x => x.recetaid,
+                        name: "fk_detalle_recetas_recetas_receta_id",
+                        column: x => x.receta_id,
                         principalTable: "recetas",
-                        principalColumn: "recetaid",
+                        principalColumn: "receta_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -116,28 +116,28 @@ namespace PracticoOrm.Migrations
                 name: "productos",
                 columns: table => new
                 {
-                    productoid = table.Column<int>(type: "integer", nullable: false)
+                    producto_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     descripcion = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    porcentajedeganancia = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
-                    recetaid = table.Column<int>(type: "integer", nullable: false),
-                    tipoproductoid = table.Column<int>(type: "integer", nullable: false)
+                    porcentaje_de_ganancia = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    receta_id = table.Column<int>(type: "integer", nullable: false),
+                    tipo_producto_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productos", x => x.productoid);
+                    table.PrimaryKey("pk_productos", x => x.producto_id);
                     table.ForeignKey(
-                        name: "FK_productos_recetas_recetaid",
-                        column: x => x.recetaid,
+                        name: "fk_productos_recetas_receta_id",
+                        column: x => x.receta_id,
                         principalTable: "recetas",
-                        principalColumn: "recetaid",
+                        principalColumn: "receta_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_productos_tipoproductos_tipoproductoid",
-                        column: x => x.tipoproductoid,
-                        principalTable: "tipoproductos",
-                        principalColumn: "tipoproductoid",
+                        name: "fk_productos_tipo_productos_tipo_producto_id",
+                        column: x => x.tipo_producto_id,
+                        principalTable: "tipo_productos",
+                        principalColumn: "tipo_producto_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -145,98 +145,98 @@ namespace PracticoOrm.Migrations
                 name: "ventas",
                 columns: table => new
                 {
-                    ventaid = table.Column<int>(type: "integer", nullable: false)
+                    venta_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    fechadeventa = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    mostradorid = table.Column<int>(type: "integer", nullable: false)
+                    fecha_de_venta = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    mostrador_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ventas", x => x.ventaid);
+                    table.PrimaryKey("pk_ventas", x => x.venta_id);
                     table.ForeignKey(
-                        name: "FK_ventas_mostradores_mostradorid",
-                        column: x => x.mostradorid,
+                        name: "fk_ventas_mostradores_mostrador_id",
+                        column: x => x.mostrador_id,
                         principalTable: "mostradores",
-                        principalColumn: "mostradorid",
+                        principalColumn: "mostrador_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "detalleventas",
+                name: "detalle_ventas",
                 columns: table => new
                 {
-                    detalleventaid = table.Column<int>(type: "integer", nullable: false)
+                    detalle_venta_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     cantidad = table.Column<int>(type: "integer", nullable: false),
-                    ventaid = table.Column<int>(type: "integer", nullable: false),
-                    productoid = table.Column<int>(type: "integer", nullable: false)
+                    venta_id = table.Column<int>(type: "integer", nullable: false),
+                    producto_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_detalleventas", x => x.detalleventaid);
+                    table.PrimaryKey("pk_detalle_ventas", x => x.detalle_venta_id);
                     table.ForeignKey(
-                        name: "FK_detalleventas_productos_productoid",
-                        column: x => x.productoid,
+                        name: "fk_detalle_ventas_productos_producto_id",
+                        column: x => x.producto_id,
                         principalTable: "productos",
-                        principalColumn: "productoid",
+                        principalColumn: "producto_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_detalleventas_ventas_ventaid",
-                        column: x => x.ventaid,
+                        name: "fk_detalle_ventas_ventas_venta_id",
+                        column: x => x.venta_id,
                         principalTable: "ventas",
-                        principalColumn: "ventaid",
+                        principalColumn: "venta_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_detallerecetas_ingredienteid",
-                table: "detallerecetas",
-                column: "ingredienteid");
+                name: "ix_detalle_recetas_ingrediente_id",
+                table: "detalle_recetas",
+                column: "ingrediente_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_detallerecetas_recetaid",
-                table: "detallerecetas",
-                column: "recetaid");
+                name: "ix_detalle_recetas_receta_id",
+                table: "detalle_recetas",
+                column: "receta_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_detalleventas_productoid",
-                table: "detalleventas",
-                column: "productoid");
+                name: "ix_detalle_ventas_producto_id",
+                table: "detalle_ventas",
+                column: "producto_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_detalleventas_ventaid",
-                table: "detalleventas",
-                column: "ventaid");
+                name: "ix_detalle_ventas_venta_id",
+                table: "detalle_ventas",
+                column: "venta_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_mostradores_puntodeventaid",
+                name: "ix_mostradores_punto_de_venta_id",
                 table: "mostradores",
-                column: "puntodeventaid");
+                column: "punto_de_venta_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_productos_recetaid",
+                name: "ix_productos_receta_id",
                 table: "productos",
-                column: "recetaid");
+                column: "receta_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_productos_tipoproductoid",
+                name: "ix_productos_tipo_producto_id",
                 table: "productos",
-                column: "tipoproductoid");
+                column: "tipo_producto_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ventas_mostradorid",
+                name: "ix_ventas_mostrador_id",
                 table: "ventas",
-                column: "mostradorid");
+                column: "mostrador_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "detallerecetas");
+                name: "detalle_recetas");
 
             migrationBuilder.DropTable(
-                name: "detalleventas");
+                name: "detalle_ventas");
 
             migrationBuilder.DropTable(
                 name: "ingredientes");
@@ -251,13 +251,13 @@ namespace PracticoOrm.Migrations
                 name: "recetas");
 
             migrationBuilder.DropTable(
-                name: "tipoproductos");
+                name: "tipo_productos");
 
             migrationBuilder.DropTable(
                 name: "mostradores");
 
             migrationBuilder.DropTable(
-                name: "puntodeventas");
+                name: "punto_de_ventas");
         }
     }
 }

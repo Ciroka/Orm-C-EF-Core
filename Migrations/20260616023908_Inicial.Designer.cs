@@ -12,8 +12,8 @@ using PracticoOrm;
 namespace PracticoOrm.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260615225423_Agregar ciudades mostradores")]
-    partial class Agregarciudadesmostradores
+    [Migration("20260616023908_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("DetalleRecetaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("detallerecetaid");
+                        .HasColumnName("detalle_receta_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DetalleRecetaId"));
 
@@ -40,19 +40,22 @@ namespace PracticoOrm.Migrations
 
                     b.Property<int>("IngredienteId")
                         .HasColumnType("integer")
-                        .HasColumnName("ingredienteid");
+                        .HasColumnName("ingrediente_id");
 
                     b.Property<int>("RecetaId")
                         .HasColumnType("integer")
-                        .HasColumnName("recetaid");
+                        .HasColumnName("receta_id");
 
-                    b.HasKey("DetalleRecetaId");
+                    b.HasKey("DetalleRecetaId")
+                        .HasName("pk_detalle_recetas");
 
-                    b.HasIndex("IngredienteId");
+                    b.HasIndex("IngredienteId")
+                        .HasDatabaseName("ix_detalle_recetas_ingrediente_id");
 
-                    b.HasIndex("RecetaId");
+                    b.HasIndex("RecetaId")
+                        .HasDatabaseName("ix_detalle_recetas_receta_id");
 
-                    b.ToTable("detallerecetas");
+                    b.ToTable("detalle_recetas", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.DetalleVenta", b =>
@@ -60,7 +63,7 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("DetalleVentaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("detalleventaid");
+                        .HasColumnName("detalle_venta_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DetalleVentaId"));
 
@@ -70,19 +73,22 @@ namespace PracticoOrm.Migrations
 
                     b.Property<int>("ProductoId")
                         .HasColumnType("integer")
-                        .HasColumnName("productoid");
+                        .HasColumnName("producto_id");
 
                     b.Property<int>("VentaId")
                         .HasColumnType("integer")
-                        .HasColumnName("ventaid");
+                        .HasColumnName("venta_id");
 
-                    b.HasKey("DetalleVentaId");
+                    b.HasKey("DetalleVentaId")
+                        .HasName("pk_detalle_ventas");
 
-                    b.HasIndex("ProductoId");
+                    b.HasIndex("ProductoId")
+                        .HasDatabaseName("ix_detalle_ventas_producto_id");
 
-                    b.HasIndex("VentaId");
+                    b.HasIndex("VentaId")
+                        .HasDatabaseName("ix_detalle_ventas_venta_id");
 
-                    b.ToTable("detalleventas");
+                    b.ToTable("detalle_ventas", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Ingrediente", b =>
@@ -90,7 +96,7 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("IngredienteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("ingredienteid");
+                        .HasColumnName("ingrediente_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IngredienteId"));
 
@@ -104,9 +110,10 @@ namespace PracticoOrm.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("nombre");
 
-                    b.HasKey("IngredienteId");
+                    b.HasKey("IngredienteId")
+                        .HasName("pk_ingredientes");
 
-                    b.ToTable("ingredientes");
+                    b.ToTable("ingredientes", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Mostrador", b =>
@@ -114,7 +121,7 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("MostradorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("mostradorid");
+                        .HasColumnName("mostrador_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MostradorId"));
 
@@ -126,13 +133,15 @@ namespace PracticoOrm.Migrations
 
                     b.Property<int>("PuntoDeVentaId")
                         .HasColumnType("integer")
-                        .HasColumnName("puntodeventaid");
+                        .HasColumnName("punto_de_venta_id");
 
-                    b.HasKey("MostradorId");
+                    b.HasKey("MostradorId")
+                        .HasName("pk_mostradores");
 
-                    b.HasIndex("PuntoDeVentaId");
+                    b.HasIndex("PuntoDeVentaId")
+                        .HasDatabaseName("ix_mostradores_punto_de_venta_id");
 
-                    b.ToTable("mostradores");
+                    b.ToTable("mostradores", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Producto", b =>
@@ -140,7 +149,7 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("ProductoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("productoid");
+                        .HasColumnName("producto_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductoId"));
 
@@ -157,27 +166,26 @@ namespace PracticoOrm.Migrations
 
                     b.Property<decimal>("PorcentajeDeGanancia")
                         .HasColumnType("decimal(10,2)")
-                        .HasColumnName("porcentajedeganancia");
-
-                    b.Property<decimal?>("PrecioVenta")
-                        .HasColumnType("decimal(10,2)")
-                        .HasColumnName("precioventa");
+                        .HasColumnName("porcentaje_de_ganancia");
 
                     b.Property<int>("RecetaId")
                         .HasColumnType("integer")
-                        .HasColumnName("recetaid");
+                        .HasColumnName("receta_id");
 
                     b.Property<int>("TipoProductoId")
                         .HasColumnType("integer")
-                        .HasColumnName("tipoproductoid");
+                        .HasColumnName("tipo_producto_id");
 
-                    b.HasKey("ProductoId");
+                    b.HasKey("ProductoId")
+                        .HasName("pk_productos");
 
-                    b.HasIndex("RecetaId");
+                    b.HasIndex("RecetaId")
+                        .HasDatabaseName("ix_productos_receta_id");
 
-                    b.HasIndex("TipoProductoId");
+                    b.HasIndex("TipoProductoId")
+                        .HasDatabaseName("ix_productos_tipo_producto_id");
 
-                    b.ToTable("productos");
+                    b.ToTable("productos", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.PuntoDeVenta", b =>
@@ -185,7 +193,7 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("PuntoDeVentaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("puntodeventaid");
+                        .HasColumnName("punto_de_venta_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PuntoDeVentaId"));
 
@@ -195,9 +203,10 @@ namespace PracticoOrm.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("nombre");
 
-                    b.HasKey("PuntoDeVentaId");
+                    b.HasKey("PuntoDeVentaId")
+                        .HasName("pk_punto_de_ventas");
 
-                    b.ToTable("puntodeventas");
+                    b.ToTable("punto_de_ventas", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Receta", b =>
@@ -205,7 +214,7 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("RecetaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("recetaid");
+                        .HasColumnName("receta_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RecetaId"));
 
@@ -215,9 +224,10 @@ namespace PracticoOrm.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("nombre");
 
-                    b.HasKey("RecetaId");
+                    b.HasKey("RecetaId")
+                        .HasName("pk_recetas");
 
-                    b.ToTable("recetas");
+                    b.ToTable("recetas", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.TipoProducto", b =>
@@ -225,7 +235,7 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("TipoProductoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("tipoproductoid");
+                        .HasColumnName("tipo_producto_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TipoProductoId"));
 
@@ -235,9 +245,10 @@ namespace PracticoOrm.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("nombre");
 
-                    b.HasKey("TipoProductoId");
+                    b.HasKey("TipoProductoId")
+                        .HasName("pk_tipo_productos");
 
-                    b.ToTable("tipoproductos");
+                    b.ToTable("tipo_productos", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.Venta", b =>
@@ -245,23 +256,25 @@ namespace PracticoOrm.Migrations
                     b.Property<int>("VentaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("ventaid");
+                        .HasColumnName("venta_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VentaId"));
 
                     b.Property<DateTime>("FechaDeVenta")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("fechadeventa");
+                        .HasColumnName("fecha_de_venta");
 
                     b.Property<int>("MostradorId")
                         .HasColumnType("integer")
-                        .HasColumnName("mostradorid");
+                        .HasColumnName("mostrador_id");
 
-                    b.HasKey("VentaId");
+                    b.HasKey("VentaId")
+                        .HasName("pk_ventas");
 
-                    b.HasIndex("MostradorId");
+                    b.HasIndex("MostradorId")
+                        .HasDatabaseName("ix_ventas_mostrador_id");
 
-                    b.ToTable("ventas");
+                    b.ToTable("ventas", (string)null);
                 });
 
             modelBuilder.Entity("PracticoOrm.Models.DetalleReceta", b =>
@@ -270,13 +283,15 @@ namespace PracticoOrm.Migrations
                         .WithMany("DetalleRecetas")
                         .HasForeignKey("IngredienteId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_detalle_recetas_ingredientes_ingrediente_id");
 
                     b.HasOne("PracticoOrm.Models.Receta", "Receta")
                         .WithMany("DetalleRecetas")
                         .HasForeignKey("RecetaId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_detalle_recetas_recetas_receta_id");
 
                     b.Navigation("Ingrediente");
 
@@ -289,13 +304,15 @@ namespace PracticoOrm.Migrations
                         .WithMany("DetalleVentas")
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_detalle_ventas_productos_producto_id");
 
                     b.HasOne("PracticoOrm.Models.Venta", "Venta")
                         .WithMany("DetalleVentas")
                         .HasForeignKey("VentaId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_detalle_ventas_ventas_venta_id");
 
                     b.Navigation("Producto");
 
@@ -308,7 +325,8 @@ namespace PracticoOrm.Migrations
                         .WithMany("Mostradores")
                         .HasForeignKey("PuntoDeVentaId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_mostradores_punto_de_ventas_punto_de_venta_id");
 
                     b.Navigation("PuntoDeVenta");
                 });
@@ -319,13 +337,15 @@ namespace PracticoOrm.Migrations
                         .WithMany("Productos")
                         .HasForeignKey("RecetaId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_productos_recetas_receta_id");
 
                     b.HasOne("PracticoOrm.Models.TipoProducto", "TipoProducto")
                         .WithMany("Productos")
                         .HasForeignKey("TipoProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_productos_tipo_productos_tipo_producto_id");
 
                     b.Navigation("Receta");
 
@@ -338,7 +358,8 @@ namespace PracticoOrm.Migrations
                         .WithMany("Ventas")
                         .HasForeignKey("MostradorId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_ventas_mostradores_mostrador_id");
 
                     b.Navigation("Mostrador");
                 });

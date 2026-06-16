@@ -13,7 +13,9 @@ var db = Environment.GetEnvironmentVariable("POSTGRES_DB") ?? "fabrica_pastas";
 var user = Environment.GetEnvironmentVariable("POSTGRES_USER") ?? "postgres";
 var password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD") ?? "admin";
 var connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={password}";
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<AppDbContext>(options => 
+        options.UseNpgsql(connectionString)
+        .UseSnakeCaseNamingConvention());
 builder.Services.AddCoreAdmin();
 var app = builder.Build();
 
