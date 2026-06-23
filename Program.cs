@@ -4,8 +4,6 @@ using PracticoOrm.Seeds;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 var host = Environment.GetEnvironmentVariable("POSTGRES_HOST") ?? "localhost";
 var port = Environment.GetEnvironmentVariable("POSTGRES_PORT") ?? "5434";

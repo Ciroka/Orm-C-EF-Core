@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace PracticoOrm.Models;
 
@@ -8,7 +7,6 @@ public class Mostrador
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int MostradorId {get; set;}
-
 
     [MaxLength(100)]
     public string Nombre {get; set;} = null!;

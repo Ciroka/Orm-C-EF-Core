@@ -1,13 +1,10 @@
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace PracticoOrm.Models;
 
 public class Producto
 {
-    
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProductoId {get; set;}
 
@@ -21,11 +18,9 @@ public class Producto
     public decimal PorcentajeDeGanancia {get; set;}
     
     public int RecetaId {get; set;}
-
     public Receta Receta {get; set;} = null!;
 
     public int TipoProductoId {get; set;}
-
     public TipoProducto TipoProducto {get; set;} = null!;
     
     public ICollection<DetalleVenta> DetalleVentas {get; set;} = [];
