@@ -2,7 +2,8 @@
 
 ## Introducción
 
-Este documento tiene el paso a paso en la creación y despliegue de una aplicación **ASP.NET Core** con **Entity Framework Core** y **PostgreSQL** usando Docker y Docker Compose.
+Este documento tiene el paso a paso en la creación y despliegue de una aplicación **ASP.NET Core** con **Entity Framework Core** y **PostgreSQL** usando Docker y Docker Compose.<br>
+Repositorio con el proyecto completo: [Orm-C-EF-Core](https://github.com/Ciroka/Orm-C-EF-Core)
 
 ---
 
